@@ -1,0 +1,14 @@
+.vscode/
+.idea/
+.git/
+doc/
+docs/
+spec/
+data/
+resources/
+*.md
+*.yaml
+*.yml
+.gitignore
+arq2-tp1
+
