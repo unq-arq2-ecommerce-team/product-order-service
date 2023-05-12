@@ -9,7 +9,6 @@
 ## Prerequisitos:
 
 - Go 1.20 or up / Docker
-- Dockercompose
 
 ## Test y coverage
 
@@ -85,19 +84,19 @@ Nota: Pedir credenciales por privado.
 Tambien, si se desea se puede cambiar las envs por otras de las que estan. Se recomienda utilizar el mismo puerto externo e interno para que funcione correctamente swagger.
 
 ```
-docker run -p <port>:8080 --env-file ./resources/local.env --name arq2-tp1 arq2-tp1
+docker run -p <port>:8080 --env-file ./resources/local.env --name products-orders-service products-orders-service
 ```
 
 Nota: agregar "-d" si se quiere ejecutar como deamon
 
 ```
-docker run -d -p <port>:8080 --env-file ./resources/local.env --name arq2-tp1 arq2-tp1
+docker run -d -p <port>:8080 --env-file ./resources/local.env --name products-orders-service products-orders-service
 ```
 
 Ejemplo:
 
 ```
-docker run -d -p 8080:8080 --env-file ./resources/local.env --name arq2-tp1 arq2-tp1
+docker run -d -p 8080:8080 --env-file ./resources/local.env --name products-orders-service products-orders-service
 ```
 
 4) En un browser, abrir swagger del servicio en el siguiente url:
