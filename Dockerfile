@@ -28,14 +28,14 @@ RUN go install github.com/swaggo/swag/cmd/swag@v1.8.10
 RUN swag init -g src/infrastructure/api/app.go
 
 WORKDIR /src/src/cmd
-RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -ldflags '-extldflags "-static"' -o /arq2-tp1-app
+RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -ldflags '-extldflags "-static"' -o /arq2-products-orders-service
 
 # final stage
 FROM golang:1.20.2-alpine3.17
 
-COPY --from=build /arq2-tp1-app /app/
+COPY --from=build /arq2-products-orders-service /app/
 COPY --from=build /src/coverage.out /app/coverage.out
 COPY --from=build /src/coverage_rates.out /app/coverage_rates.out
 WORKDIR /app
 
-CMD ["./arq2-tp1-app"]
+CMD ["./arq2-products-orders-service"]

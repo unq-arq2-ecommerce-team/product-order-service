@@ -1,6 +1,4 @@
-# Arquitectura de Software 2 - Universidad Nacional de Quilmes
-
-[Enunciado del Trabajo Práctico](https://github.com/cassa10/arq2-tp1/blob/main/doc/Arq2%20-%20Trabajo%20pr%C3%A1ctico.pdf)
+# products-orders-service
 
 ## Tecnologías:
 
@@ -11,7 +9,7 @@
 ## Prerequisitos:
 
 - Go 1.20 or up / Docker
-
+- Dockercompose
 
 ## Test y coverage
 
@@ -68,7 +66,7 @@ http://localhost:<port>/docs/index.html
 2) Construir el Dockerfile (imagen) del servicio
 
 ```
-docker build -t arq2-tp1 .
+docker build -t products-orders-service .
 ```
 
 3) Ejecutar la imagen construida
