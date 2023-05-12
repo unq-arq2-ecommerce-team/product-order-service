@@ -34,7 +34,7 @@ func CreateOrderHandler(log model.Logger, createOrder *usecase.CreateOrder) gin.
 		orderId, err := createOrder.Do(c.Request.Context(), req.CustomerId, req.ProductId, req.DeliveryDate, req.DeliveryAddress)
 		if err != nil {
 			switch err.(type) {
-			case exception.CustomerNotFound, exception.ProductNotFound:
+			case exception.ProductNotFound:
 				writeJsonErrorMessageWithNoDesc(c, http.StatusNotFound, err)
 			case exception.ProductWithNoStock:
 				writeJsonErrorMessageWithNoDesc(c, http.StatusNotAcceptable, err)

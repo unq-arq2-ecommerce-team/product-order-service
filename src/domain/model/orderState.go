@@ -3,6 +3,7 @@ package model
 import (
 	"encoding/json"
 	"strings"
+	"time"
 )
 
 const (
@@ -36,6 +37,7 @@ type PendingOrderState struct{}
 
 func (pS PendingOrderState) Confirm(order *Order) bool {
 	order.State = ConfirmedOrderState{}
+	order.UpdatedOn = time.Now()
 	return true
 }
 
@@ -67,6 +69,7 @@ func (cS ConfirmedOrderState) Confirm(_ *Order) bool {
 
 func (cS ConfirmedOrderState) Delivered(order *Order) bool {
 	order.State = DeliveredOrderState{}
+	order.UpdatedOn = time.Now()
 	return true
 }
 

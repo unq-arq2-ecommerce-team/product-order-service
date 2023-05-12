@@ -20,7 +20,8 @@ func Test_GivenAConfirmedOrderAndDeliveredOrderCmd_WhenDo_ThenReturnNoErrorAndOr
 
 	orderRepo := *order
 	orderRepo.Delivered()
-	mocks.OrderRepo.EXPECT().Update(ctx, orderRepo).Return(true, nil)
+	// uses gomock.any() because delivered update order and change updateOn field to time.now
+	mocks.OrderRepo.EXPECT().Update(ctx, gomock.Any()).Return(true, nil)
 
 	err := deliveredOrderCmd.Do(ctx, order)
 

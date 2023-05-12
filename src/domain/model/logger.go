@@ -1,8 +1,11 @@
 package model
 
+import "context"
+
 //go:generate mockgen -destination=../mock/logger.go -package=mock -source=logger.go
 type Logger interface {
 	WithFields(map[string]interface{}) Logger
+	WithRequestId(context.Context) Logger
 	Print(...interface{})
 	Debug(...interface{})
 	Info(...interface{})

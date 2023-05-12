@@ -57,28 +57,6 @@ func Test_GivenCreateProductCmdAndNewProductAndProductRepoCreateError_WhenDo_The
 	assert.EqualError(t, err, msgErr)
 }
 
-func Test_GivenCreateProductCmdAndNewProductAndProductRepoFindAllBySellerError_WhenDo_ThenReturnThatError(t *testing.T) {
-	createProductCmd, mocks := setUpProductCreateCmd(t)
-	ctx := context.Background()
-	sellerId := int64(123)
-	product := model.Product{
-		SellerId:    sellerId,
-		Name:        "Jabon",
-		Description: "Un jabon lindo",
-		Price:       0.50,
-		Category:    "c1",
-		Stock:       60,
-	}
-	msgErr := "unexpected error when get all products by seller id"
-	mocks.SellerRepo.EXPECT().FindById(ctx, sellerId).Return(&model.Seller{Id: sellerId}, nil)
-	mocks.ProductRepo.EXPECT().FindAllBySellerId(ctx, sellerId).Return([]model.Product{}, fmt.Errorf(msgErr))
-
-	resProductId, err := createProductCmd.Do(ctx, product)
-
-	assert.Equal(t, int64(0), resProductId)
-	assert.EqualError(t, err, msgErr)
-}
-
 func Test_GivenCreateProductCmdAndNewProductAndSellerRepoFindByIdError_WhenDo_ThenReturnThatError(t *testing.T) {
 	createProductCmd, mocks := setUpProductCreateCmd(t)
 	ctx := context.Background()
@@ -101,5 +79,5 @@ func Test_GivenCreateProductCmdAndNewProductAndSellerRepoFindByIdError_WhenDo_Th
 
 func setUpProductCreateCmd(t *testing.T) (*CreateProduct, *mock.InterfaceMocks) {
 	mocks := mock.NewInterfaceMocks(t)
-	return NewCreateProduct(mocks.ProductRepo, *query.NewFindSellerById(mocks.SellerRepo, mocks.ProductRepo)), mocks
+	return NewCreateProduct(mocks.ProductRepo, *query.NewFindSellerById(mocks.SellerRepo)), mocks
 }

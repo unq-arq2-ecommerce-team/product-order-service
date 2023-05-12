@@ -7,6 +7,7 @@ import (
 	"github.com/cassa10/arq2-tp1/src/domain/action/query"
 	"github.com/cassa10/arq2-tp1/src/domain/model"
 	"github.com/cassa10/arq2-tp1/src/domain/usecase"
+	"github.com/cassa10/arq2-tp1/src/infrastructure/api/middleware"
 	v1 "github.com/cassa10/arq2-tp1/src/infrastructure/api/v1"
 	"github.com/cassa10/arq2-tp1/src/infrastructure/config"
 	"github.com/gin-gonic/gin"
@@ -38,18 +39,9 @@ type application struct {
 }
 
 type ApplicationUseCases struct {
-	//customer
-	CreateCustomerCmd *command.CreateCustomer
-	UpdateCustomerCmd *command.UpdateCustomer
-	DeleteCustomerCmd *command.DeleteCustomer
-	FindCustomerQuery *query.FindCustomerById
-	//seller
-	CreateSellerCmd *command.CreateSeller
-	UpdateSellerCmd *command.UpdateSeller
-	DeleteSellerCmd *command.DeleteSeller
-	FindSellerQuery *query.FindSellerById
 	//product
 	CreateProductCmd    *command.CreateProduct
+	FindSellerQuery     *query.FindSellerById
 	UpdateProductCmd    *command.UpdateProduct
 	DeleteProductCmd    *command.DeleteProduct
 	FindProductQuery    *query.FindProductById
@@ -79,20 +71,7 @@ func (app *application) Run() error {
 	router.GET("/", HealthCheck)
 
 	rv1 := router.Group("/api/v1")
-	{
-		rv1Customer := rv1.Group("/customer")
-		rv1Customer.POST("", v1.CreateCustomerHandler(app.logger, app.CreateCustomerCmd))
-		rv1Customer.GET("/:customerId", v1.FindCustomerHandler(app.logger, app.FindCustomerQuery))
-		rv1Customer.DELETE("/:customerId", v1.DeleteCustomerHandler(app.logger, app.DeleteCustomerCmd))
-		rv1Customer.PUT("/:customerId", v1.UpdateCustomerHandler(app.logger, app.UpdateCustomerCmd))
-	}
-	{
-		rv1Seller := rv1.Group("/seller")
-		rv1Seller.POST("", v1.CreateSellerHandler(app.logger, app.CreateSellerCmd))
-		rv1Seller.GET("/:sellerId", v1.FindSellerHandler(app.logger, app.FindSellerQuery))
-		rv1Seller.DELETE("/:sellerId", v1.DeleteSellerHandler(app.logger, app.DeleteSellerCmd))
-		rv1Seller.PUT("/:sellerId", v1.UpdateSellerHandler(app.logger, app.UpdateSellerCmd))
-	}
+	rv1.Use(middleware.TracingRequestId())
 	{
 		rv1.POST("/seller/:sellerId/product", v1.CreateProductHandler(app.logger, app.CreateProductCmd))
 		rv1Product := rv1.Group("/seller/product")

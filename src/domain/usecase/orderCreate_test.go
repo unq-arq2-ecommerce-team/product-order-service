@@ -24,7 +24,6 @@ func Test_GivenCreateOrderUseCaseAndProductWithStockAndCustomerIdThatExistAndOrd
 	product := &model.Product{Id: productId, Stock: 10}
 
 	newOrderId := int64(777)
-	mocks.CustomerRepo.EXPECT().FindById(ctx, customerId).Return(&model.Customer{Id: customerId}, nil)
 	mocks.ProductRepo.EXPECT().FindById(ctx, productId).Return(product, nil)
 	//uses gomock.Any() because model.NewOrder(...) returns time.Now in some fields
 	mocks.OrderRepo.EXPECT().Create(ctx, gomock.Any()).Return(newOrderId, nil)
@@ -44,7 +43,6 @@ func Test_GivenCreateOrderUseCaseAndProductWithNoStockAndCustomerIdThatExistAndO
 	deliveryAddress := model.Address{}
 	product := &model.Product{Id: productId, Stock: 0}
 
-	mocks.CustomerRepo.EXPECT().FindById(ctx, customerId).Return(&model.Customer{Id: customerId}, nil)
 	mocks.ProductRepo.EXPECT().FindById(ctx, productId).Return(product, nil)
 
 	orderId, err := createOrderUseCase.Do(ctx, customerId, productId, deliveryDate, deliveryAddress)
@@ -63,7 +61,6 @@ func Test_GivenCreateOrderUseCaseAndProductWithStockAndCustomerIdThatExistAndOrd
 	product := &model.Product{Id: productId, Stock: 10}
 
 	msgError := "error in create order"
-	mocks.CustomerRepo.EXPECT().FindById(ctx, customerId).Return(&model.Customer{Id: customerId}, nil)
 	mocks.ProductRepo.EXPECT().FindById(ctx, productId).Return(product, nil)
 	//uses gomock.Any() because model.NewOrder(...) returns time.Now in some fields
 	mocks.OrderRepo.EXPECT().Create(ctx, gomock.Any()).Return(int64(0), fmt.Errorf(msgError))
@@ -83,25 +80,7 @@ func Test_GivenCreateOrderUseCaseAndProductNoExistAndCustomerIdThatExistAndOrder
 	deliveryAddress := model.Address{}
 
 	expectedErr := exception.ProductNotFound{Id: productId}
-	mocks.CustomerRepo.EXPECT().FindById(ctx, customerId).Return(&model.Customer{Id: customerId}, nil)
 	mocks.ProductRepo.EXPECT().FindById(ctx, productId).Return(nil, expectedErr)
-
-	orderId, err := createOrderUseCase.Do(ctx, customerId, productId, deliveryDate, deliveryAddress)
-
-	assert.ErrorIs(t, err, expectedErr)
-	assert.Equal(t, int64(0), orderId)
-}
-
-func Test_GivenCreateOrderUseCaseAndProductAndCustomerIdThatNotExistAndOrderInfoAndCustomerRepoFindByIdError_WhenDo_ThenReturnThatError(t *testing.T) {
-	createOrderUseCase, mocks := setUpCreateOrderUseCase(t)
-	ctx := context.Background()
-	customerId := int64(12)
-	productId := int64(444)
-	deliveryDate := time.Now()
-	deliveryAddress := model.Address{}
-
-	expectedErr := exception.CustomerNotFound{Id: customerId}
-	mocks.CustomerRepo.EXPECT().FindById(ctx, customerId).Return(nil, expectedErr)
 
 	orderId, err := createOrderUseCase.Do(ctx, customerId, productId, deliveryDate, deliveryAddress)
 
@@ -113,6 +92,5 @@ func setUpCreateOrderUseCase(t *testing.T) (*CreateOrder, *mock.InterfaceMocks) 
 	mocks := mock.NewInterfaceMocks(t)
 	createOrderCmd := *command.NewCreateOrder(mocks.OrderRepo)
 	findProductByIdQuery := *query.NewFindProductById(mocks.ProductRepo)
-	findCustomerByIdQuery := *query.NewFindCustomerById(mocks.CustomerRepo)
-	return NewCreateOrder(mocks.Logger, createOrderCmd, findProductByIdQuery, findCustomerByIdQuery), mocks
+	return NewCreateOrder(mocks.Logger, createOrderCmd, findProductByIdQuery), mocks
 }

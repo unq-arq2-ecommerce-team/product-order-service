@@ -1,6 +1,7 @@
 package logger
 
 import (
+	"context"
 	"github.com/cassa10/arq2-tp1/src/domain/model"
 	"github.com/sirupsen/logrus"
 	"strings"
@@ -42,11 +43,17 @@ func New(config *Config) model.Logger {
 	return newLogger
 }
 
+// WithFields returns a logger with given fields, new fields overrides old ones
 func (l *logger) WithFields(fields map[string]interface{}) model.Logger {
 	return &entry{
 		entry:   l.logger.WithFields(collectFields(l.dFields, fields)),
 		dFields: l.dFields,
 	}
+}
+
+// WithContext returns a logger that contains the values from a given context
+func (l *logger) WithRequestId(ctx context.Context) model.Logger {
+	return withRequestId(ctx, &entry{l.logger.WithContext(ctx), l.dFields})
 }
 
 func (l *logger) Print(message ...interface{}) {
@@ -110,6 +117,17 @@ func (e *entry) WithFields(fields map[string]interface{}) model.Logger {
 		entry:   e.entry.WithFields(collectFields(e.dFields, fields)),
 		dFields: e.dFields,
 	}
+}
+
+func (e *entry) WithRequestId(ctx context.Context) model.Logger {
+	return withRequestId(ctx, &entry{e.entry.WithContext(ctx), e.dFields})
+}
+
+func withRequestId(ctx context.Context, baseLogger model.Logger) model.Logger {
+	if reqId := GetRequestId(ctx); reqId != "" {
+		return baseLogger.WithFields(Fields{requestIdKeyStr: reqId})
+	}
+	return baseLogger
 }
 
 func (e *entry) Print(message ...interface{}) {

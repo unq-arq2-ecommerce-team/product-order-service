@@ -11,28 +11,21 @@ import (
 )
 
 type CreateOrder struct {
-	baseLogger            model.Logger
-	createOrderCmd        command.CreateOrder
-	findProductByIdQuery  query.FindProductById
-	findCustomerByIdQuery query.FindCustomerById
+	baseLogger           model.Logger
+	createOrderCmd       command.CreateOrder
+	findProductByIdQuery query.FindProductById
 }
 
-func NewCreateOrder(baseLogger model.Logger, createOrderCmd command.CreateOrder, findProductByIdQuery query.FindProductById, findCustomerByIdQuery query.FindCustomerById) *CreateOrder {
+func NewCreateOrder(baseLogger model.Logger, createOrderCmd command.CreateOrder, findProductByIdQuery query.FindProductById) *CreateOrder {
 	return &CreateOrder{
-		baseLogger:            baseLogger.WithFields(logger.Fields{"useCase": "CreateOrder"}),
-		createOrderCmd:        createOrderCmd,
-		findProductByIdQuery:  findProductByIdQuery,
-		findCustomerByIdQuery: findCustomerByIdQuery,
+		baseLogger:           baseLogger.WithFields(logger.Fields{"useCase": "CreateOrder"}),
+		createOrderCmd:       createOrderCmd,
+		findProductByIdQuery: findProductByIdQuery,
 	}
 }
 
 func (u CreateOrder) Do(ctx context.Context, customerId, productId int64, deliveryDate time.Time, deliveryAddress model.Address) (int64, error) {
 	log := u.baseLogger.WithFields(logger.Fields{"customerId": customerId, "productId": productId, "deliveryDate": deliveryDate, "deliveryAddress": deliveryAddress})
-	_, err := u.findCustomerByIdQuery.Do(ctx, customerId)
-	if err != nil {
-		log.WithFields(logger.Fields{"error": err}).Errorf("error when find customer")
-		return 0, err
-	}
 	product, err := u.findProductByIdQuery.Do(ctx, productId)
 	if err != nil {
 		log.WithFields(logger.Fields{"error": err}).Errorf("error when find product")

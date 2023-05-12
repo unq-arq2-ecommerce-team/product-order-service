@@ -35,36 +35,6 @@ func (m *MockSellerRepository) EXPECT() *MockSellerRepositoryMockRecorder {
 	return m.recorder
 }
 
-// Create mocks base method.
-func (m *MockSellerRepository) Create(ctx context.Context, seller model.Seller) (int64, error) {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "Create", ctx, seller)
-	ret0, _ := ret[0].(int64)
-	ret1, _ := ret[1].(error)
-	return ret0, ret1
-}
-
-// Create indicates an expected call of Create.
-func (mr *MockSellerRepositoryMockRecorder) Create(ctx, seller interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Create", reflect.TypeOf((*MockSellerRepository)(nil).Create), ctx, seller)
-}
-
-// Delete mocks base method.
-func (m *MockSellerRepository) Delete(ctx context.Context, id int64) (bool, error) {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "Delete", ctx, id)
-	ret0, _ := ret[0].(bool)
-	ret1, _ := ret[1].(error)
-	return ret0, ret1
-}
-
-// Delete indicates an expected call of Delete.
-func (mr *MockSellerRepositoryMockRecorder) Delete(ctx, id interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Delete", reflect.TypeOf((*MockSellerRepository)(nil).Delete), ctx, id)
-}
-
 // FindById mocks base method.
 func (m *MockSellerRepository) FindById(ctx context.Context, id int64) (*model.Seller, error) {
 	m.ctrl.T.Helper()
@@ -78,34 +48,4 @@ func (m *MockSellerRepository) FindById(ctx context.Context, id int64) (*model.S
 func (mr *MockSellerRepositoryMockRecorder) FindById(ctx, id interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "FindById", reflect.TypeOf((*MockSellerRepository)(nil).FindById), ctx, id)
-}
-
-// FindByName mocks base method.
-func (m *MockSellerRepository) FindByName(ctx context.Context, name string) (*model.Seller, error) {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "FindByName", ctx, name)
-	ret0, _ := ret[0].(*model.Seller)
-	ret1, _ := ret[1].(error)
-	return ret0, ret1
-}
-
-// FindByName indicates an expected call of FindByName.
-func (mr *MockSellerRepositoryMockRecorder) FindByName(ctx, name interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "FindByName", reflect.TypeOf((*MockSellerRepository)(nil).FindByName), ctx, name)
-}
-
-// Update mocks base method.
-func (m *MockSellerRepository) Update(ctx context.Context, seller model.Seller) (bool, error) {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "Update", ctx, seller)
-	ret0, _ := ret[0].(bool)
-	ret1, _ := ret[1].(error)
-	return ret0, ret1
-}
-
-// Update indicates an expected call of Update.
-func (mr *MockSellerRepositoryMockRecorder) Update(ctx, seller interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Update", reflect.TypeOf((*MockSellerRepository)(nil).Update), ctx, seller)
 }
