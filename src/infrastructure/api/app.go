@@ -20,7 +20,7 @@ import (
 // Application
 // @title products-orders-service API
 // @version 1.0
-// @description api for tp arq2-tp1
+// @description api for tp arq2
 // @contact.name API SUPPORT
 // @contact.url http://www.swagger.io/support
 // @contact.email support@swagger.io
