@@ -15,7 +15,7 @@ import (
 func main() {
 	conf := config.LoadConfig()
 	baseLogger := logger.New(&logger.Config{
-		ServiceName:     "arq2-tp1",
+		ServiceName:     "products-orders-service",
 		EnvironmentName: conf.Environment,
 		LogLevel:        conf.LogLevel,
 		LogFormat:       logger.JsonFormat,
