@@ -2,7 +2,7 @@ package model
 
 import (
 	"context"
-	"github.com/cassa10/arq2-tp1/src/domain/util"
+	"github.com/unq-arq2-ecommerce-team/products-orders-service/src/domain/util"
 )
 
 type Seller struct {

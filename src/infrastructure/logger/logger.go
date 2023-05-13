@@ -2,8 +2,8 @@ package logger
 
 import (
 	"context"
-	"github.com/cassa10/arq2-tp1/src/domain/model"
 	"github.com/sirupsen/logrus"
+	"github.com/unq-arq2-ecommerce-team/products-orders-service/src/domain/model"
 	"strings"
 	"time"
 )

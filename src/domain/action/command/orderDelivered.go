@@ -2,8 +2,8 @@ package command
 
 import (
 	"context"
-	"github.com/cassa10/arq2-tp1/src/domain/model"
-	"github.com/cassa10/arq2-tp1/src/domain/model/exception"
+	"github.com/unq-arq2-ecommerce-team/products-orders-service/src/domain/model"
+	"github.com/unq-arq2-ecommerce-team/products-orders-service/src/domain/model/exception"
 )
 
 type DeliveredOrder struct {

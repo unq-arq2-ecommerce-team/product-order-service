@@ -1,10 +1,10 @@
 package v1
 
 import (
-	"github.com/cassa10/arq2-tp1/src/domain/action/query"
-	"github.com/cassa10/arq2-tp1/src/domain/model"
-	"github.com/cassa10/arq2-tp1/src/infrastructure/dto"
 	"github.com/gin-gonic/gin"
+	"github.com/unq-arq2-ecommerce-team/products-orders-service/src/domain/action/query"
+	"github.com/unq-arq2-ecommerce-team/products-orders-service/src/domain/model"
+	"github.com/unq-arq2-ecommerce-team/products-orders-service/src/infrastructure/dto"
 	"net/http"
 )
 

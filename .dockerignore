@@ -10,5 +10,5 @@ resources/
 *.yaml
 *.yml
 .gitignore
-arq2-tp1
+products-orders-service
 

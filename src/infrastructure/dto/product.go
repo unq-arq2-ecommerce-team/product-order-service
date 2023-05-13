@@ -2,7 +2,7 @@ package dto
 
 import (
 	"fmt"
-	"github.com/cassa10/arq2-tp1/src/domain/model"
+	"github.com/unq-arq2-ecommerce-team/products-orders-service/src/domain/model"
 )
 
 type ProductCreateReq struct {

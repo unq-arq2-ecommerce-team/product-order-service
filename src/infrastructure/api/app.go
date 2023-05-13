@@ -2,23 +2,23 @@ package api
 
 import (
 	"fmt"
-	swaggerDocs "github.com/cassa10/arq2-tp1/docs"
-	"github.com/cassa10/arq2-tp1/src/domain/action/command"
-	"github.com/cassa10/arq2-tp1/src/domain/action/query"
-	"github.com/cassa10/arq2-tp1/src/domain/model"
-	"github.com/cassa10/arq2-tp1/src/domain/usecase"
-	"github.com/cassa10/arq2-tp1/src/infrastructure/api/middleware"
-	v1 "github.com/cassa10/arq2-tp1/src/infrastructure/api/v1"
-	"github.com/cassa10/arq2-tp1/src/infrastructure/config"
 	"github.com/gin-gonic/gin"
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
+	swaggerDocs "github.com/unq-arq2-ecommerce-team/products-orders-service/docs"
+	"github.com/unq-arq2-ecommerce-team/products-orders-service/src/domain/action/command"
+	"github.com/unq-arq2-ecommerce-team/products-orders-service/src/domain/action/query"
+	"github.com/unq-arq2-ecommerce-team/products-orders-service/src/domain/model"
+	"github.com/unq-arq2-ecommerce-team/products-orders-service/src/domain/usecase"
+	"github.com/unq-arq2-ecommerce-team/products-orders-service/src/infrastructure/api/middleware"
+	v1 "github.com/unq-arq2-ecommerce-team/products-orders-service/src/infrastructure/api/v1"
+	"github.com/unq-arq2-ecommerce-team/products-orders-service/src/infrastructure/config"
 	"io"
 	"net/http"
 )
 
 // Application
-// @title arq2-tp1 API
+// @title products-orders-service API
 // @version 1.0
 // @description api for tp arq2-tp1
 // @contact.name API SUPPORT

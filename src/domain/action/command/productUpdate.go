@@ -2,8 +2,8 @@ package command
 
 import (
 	"context"
-	"github.com/cassa10/arq2-tp1/src/domain/action/query"
-	"github.com/cassa10/arq2-tp1/src/domain/model"
+	"github.com/unq-arq2-ecommerce-team/products-orders-service/src/domain/action/query"
+	"github.com/unq-arq2-ecommerce-team/products-orders-service/src/domain/model"
 )
 
 type UpdateProduct struct {

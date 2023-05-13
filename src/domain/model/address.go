@@ -1,6 +1,6 @@
 package model
 
-import "github.com/cassa10/arq2-tp1/src/domain/util"
+import "github.com/unq-arq2-ecommerce-team/products-orders-service/src/domain/util"
 
 type Address struct {
 	Street      string `json:"street" bson:"street" binding:"required"`

@@ -2,8 +2,8 @@ package mongo
 
 import (
 	"context"
-	"github.com/cassa10/arq2-tp1/src/domain/model"
-	"github.com/cassa10/arq2-tp1/src/infrastructure/logger"
+	"github.com/unq-arq2-ecommerce-team/products-orders-service/src/domain/model"
+	"github.com/unq-arq2-ecommerce-team/products-orders-service/src/infrastructure/logger"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 	"time"

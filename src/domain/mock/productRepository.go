@@ -6,9 +6,9 @@ package mock
 
 import (
 	context "context"
+	"github.com/unq-arq2-ecommerce-team/products-orders-service/src/domain/model"
 	reflect "reflect"
 
-	model "github.com/cassa10/arq2-tp1/src/domain/model"
 	gomock "github.com/golang/mock/gomock"
 )
 

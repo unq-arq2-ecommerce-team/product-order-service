@@ -3,10 +3,10 @@ package query
 import (
 	"context"
 	"fmt"
-	"github.com/cassa10/arq2-tp1/src/domain/mock"
-	"github.com/cassa10/arq2-tp1/src/domain/model"
-	"github.com/cassa10/arq2-tp1/src/domain/model/exception"
 	"github.com/stretchr/testify/assert"
+	"github.com/unq-arq2-ecommerce-team/products-orders-service/src/domain/mock"
+	"github.com/unq-arq2-ecommerce-team/products-orders-service/src/domain/model"
+	"github.com/unq-arq2-ecommerce-team/products-orders-service/src/domain/model/exception"
 	"testing"
 )
 

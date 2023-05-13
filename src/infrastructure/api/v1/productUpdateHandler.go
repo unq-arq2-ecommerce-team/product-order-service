@@ -1,11 +1,11 @@
 package v1
 
 import (
-	"github.com/cassa10/arq2-tp1/src/domain/action/command"
-	"github.com/cassa10/arq2-tp1/src/domain/model"
-	"github.com/cassa10/arq2-tp1/src/domain/model/exception"
-	"github.com/cassa10/arq2-tp1/src/infrastructure/logger"
 	"github.com/gin-gonic/gin"
+	"github.com/unq-arq2-ecommerce-team/products-orders-service/src/domain/action/command"
+	"github.com/unq-arq2-ecommerce-team/products-orders-service/src/domain/model"
+	"github.com/unq-arq2-ecommerce-team/products-orders-service/src/domain/model/exception"
+	"github.com/unq-arq2-ecommerce-team/products-orders-service/src/infrastructure/logger"
 	"net/http"
 )
 

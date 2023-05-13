@@ -2,14 +2,14 @@ package main
 
 import (
 	"context"
-	"github.com/cassa10/arq2-tp1/src/domain/action/command"
-	"github.com/cassa10/arq2-tp1/src/domain/action/query"
-	"github.com/cassa10/arq2-tp1/src/domain/usecase"
-	"github.com/cassa10/arq2-tp1/src/infrastructure/api"
-	"github.com/cassa10/arq2-tp1/src/infrastructure/config"
-	"github.com/cassa10/arq2-tp1/src/infrastructure/logger"
-	"github.com/cassa10/arq2-tp1/src/infrastructure/repository/http"
-	"github.com/cassa10/arq2-tp1/src/infrastructure/repository/mongo"
+	"github.com/unq-arq2-ecommerce-team/products-orders-service/src/domain/action/command"
+	"github.com/unq-arq2-ecommerce-team/products-orders-service/src/domain/action/query"
+	"github.com/unq-arq2-ecommerce-team/products-orders-service/src/domain/usecase"
+	"github.com/unq-arq2-ecommerce-team/products-orders-service/src/infrastructure/api"
+	"github.com/unq-arq2-ecommerce-team/products-orders-service/src/infrastructure/config"
+	"github.com/unq-arq2-ecommerce-team/products-orders-service/src/infrastructure/logger"
+	"github.com/unq-arq2-ecommerce-team/products-orders-service/src/infrastructure/repository/http"
+	"github.com/unq-arq2-ecommerce-team/products-orders-service/src/infrastructure/repository/mongo"
 )
 
 func main() {
