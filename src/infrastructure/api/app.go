@@ -40,12 +40,13 @@ type application struct {
 
 type ApplicationUseCases struct {
 	//product
-	CreateProductCmd    *command.CreateProduct
-	FindSellerQuery     *query.FindSellerById
-	UpdateProductCmd    *command.UpdateProduct
-	DeleteProductCmd    *command.DeleteProduct
-	FindProductQuery    *query.FindProductById
-	SearchProductsQuery *query.SearchProducts
+	CreateProductCmd             *command.CreateProduct
+	FindSellerQuery              *query.FindSellerById
+	UpdateProductCmd             *command.UpdateProduct
+	DeleteProductCmd             *command.DeleteProduct
+	FindProductQuery             *query.FindProductById
+	SearchProductsQuery          *query.SearchProducts
+	DeleteAllProductsBySellerCmd *command.DeleteAllProductsBySellerId
 	//order
 	FindOrderQuery        *query.FindOrderById
 	CreateOrderUseCase    *usecase.CreateOrder
@@ -73,6 +74,7 @@ func (app *application) Run() error {
 	rv1 := router.Group("/api/v1")
 	rv1.Use(middleware.TracingRequestId())
 	{
+		rv1.DELETE("/seller/:sellerId/product/all", v1.DeleteAllBySellerHandler(app.logger, app.DeleteAllProductsBySellerCmd))
 		rv1.POST("/seller/:sellerId/product", v1.CreateProductHandler(app.logger, app.CreateProductCmd))
 		rv1Product := rv1.Group("/seller/product")
 		rv1Product.GET("/:productId", v1.FindProductHandler(app.logger, app.FindProductQuery))

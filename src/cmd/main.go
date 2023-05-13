@@ -32,10 +32,11 @@ func main() {
 	//product
 	findSellerByIdQuery := query.NewFindSellerById(sellerRepo)
 	findProductByIdQuery := query.NewFindProductById(productRepo)
+	searchProductQuery := query.NewSearchProducts(productRepo)
 	createProductCmd := command.NewCreateProduct(productRepo, *findSellerByIdQuery)
 	updateProductCmd := command.NewUpdateProduct(productRepo, *findProductByIdQuery)
 	deleteProductCmd := command.NewDeleteProduct(productRepo, *findProductByIdQuery)
-	searchProductQuery := query.NewSearchProducts(productRepo)
+	deleteAllProductsBySellerIdCmd := command.NewDeleteAllProductsBySellerId(productRepo)
 
 	//order
 	findOrderByIdQuery := query.NewFindOrderById(orderRepo)
@@ -48,12 +49,13 @@ func main() {
 	deliveredOrderUseCase := usecase.NewDeliveredOrder(baseLogger, *deliveredOrderCmd, *findOrderByIdQuery)
 
 	app := api.NewApplication(baseLogger, conf, &api.ApplicationUseCases{
-		FindProductQuery:    findProductByIdQuery,
-		FindSellerQuery:     findSellerByIdQuery,
-		CreateProductCmd:    createProductCmd,
-		UpdateProductCmd:    updateProductCmd,
-		DeleteProductCmd:    deleteProductCmd,
-		SearchProductsQuery: searchProductQuery,
+		FindProductQuery:             findProductByIdQuery,
+		FindSellerQuery:              findSellerByIdQuery,
+		CreateProductCmd:             createProductCmd,
+		UpdateProductCmd:             updateProductCmd,
+		DeleteProductCmd:             deleteProductCmd,
+		SearchProductsQuery:          searchProductQuery,
+		DeleteAllProductsBySellerCmd: deleteAllProductsBySellerIdCmd,
 
 		FindOrderQuery:        findOrderByIdQuery,
 		CreateOrderUseCase:    createOrderUseCase,
