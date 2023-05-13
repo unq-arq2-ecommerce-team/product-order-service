@@ -40,6 +40,7 @@ type ProductSearchQueryReq struct {
 	PagingParamQuery
 	Name     string   `form:"name"`
 	Category string   `form:"category"`
+	SellerId int64    `form:"sellerId"`
 	PriceMin *float64 `form:"priceMin"`
 	PriceMax *float64 `form:"priceMax"`
 }
@@ -48,9 +49,12 @@ func (qs ProductSearchQueryReq) ValidateReq() error {
 	if qs.PriceMin != nil && qs.PriceMax != nil && *qs.PriceMin > *qs.PriceMax {
 		return fmt.Errorf("priceMin is greater than priceMax")
 	}
+	if qs.SellerId < 0 {
+		return fmt.Errorf("sellerId must be greater than 0")
+	}
 	return nil
 }
 
 func (qs ProductSearchQueryReq) GetProductSearchFilter() model.ProductSearchFilter {
-	return model.NewProductSearchFilter(qs.Name, qs.Category, qs.PriceMin, qs.PriceMax)
+	return model.NewProductSearchFilter(qs.Name, qs.Category, qs.SellerId, qs.PriceMin, qs.PriceMax)
 }

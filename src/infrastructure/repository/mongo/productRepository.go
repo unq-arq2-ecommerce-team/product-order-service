@@ -210,6 +210,7 @@ func getFilter(query model.ProductSearchFilter) bson.M {
 	return NewFilterBuilder().
 		AppendAndOpFilterIf(query.Name != "", bson.M{"name": createStringCaseInsensitiveFilter(query.Name)}).
 		AppendAndOpFilterIf(query.Category != "", bson.M{"category": createStringCaseInsensitiveFilter(query.Category)}).
+		AppendAndOpFilterIf(query.SellerId > 0, bson.M{"sellerId": query.SellerId}).
 		AppendAndOpFilterIf(query.ContainsAnyPriceFilter(), bson.M{"price": bson.M{mongoGTEOp: query.GetPriceMinOrDefault(), mongoLTEOp: query.GetPriceMaxOrDefault()}}).
 		Build()
 }

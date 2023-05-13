@@ -12,14 +12,16 @@ const (
 type ProductSearchFilter struct {
 	Name     string   `json:"name"`
 	Category string   `json:"category"`
+	SellerId int64    `json:"sellerId"`
 	PriceMin *float64 `json:"priceMin"`
 	PriceMax *float64 `json:"priceMax"`
 }
 
-func NewProductSearchFilter(name, category string, priceMin, priceMax *float64) ProductSearchFilter {
+func NewProductSearchFilter(name, category string, sellerId int64, priceMin, priceMax *float64) ProductSearchFilter {
 	return ProductSearchFilter{
 		Name:     name,
 		Category: category,
+		SellerId: sellerId,
 		PriceMin: priceMin,
 		PriceMax: priceMax,
 	}
