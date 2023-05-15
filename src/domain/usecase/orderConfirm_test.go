@@ -24,7 +24,7 @@ func Test_GivenAPendingOrderAndConfirmOrderUseCase_WhenDo_ThenReturnNoErrorAndOr
 	orderRepo := *order
 	orderRepo.Confirm()
 	mocks.OrderRepo.EXPECT().FindById(ctx, orderId).Return(order, nil)
-	mocks.OrderRepo.EXPECT().Update(ctx, orderRepo).Return(true, nil)
+	mocks.OrderRepo.EXPECT().Update(ctx, gomock.Any()).Return(true, nil)
 
 	err := confirmOrderUseCase.Do(ctx, orderId)
 
@@ -85,7 +85,7 @@ func Test_GivenConfirmOrderUseCaseAndAPendingOrderAndOrderRepoUpdateError_WhenDo
 	orderRepo := *order
 	orderRepo.Confirm()
 	mocks.OrderRepo.EXPECT().FindById(ctx, orderId).Return(order, nil)
-	mocks.OrderRepo.EXPECT().Update(ctx, orderRepo).Return(false, exception.OrderCannotUpdate{Id: orderId})
+	mocks.OrderRepo.EXPECT().Update(ctx, gomock.Any()).Return(false, exception.OrderCannotUpdate{Id: orderId})
 
 	err := confirmOrderUseCase.Do(ctx, orderId)
 

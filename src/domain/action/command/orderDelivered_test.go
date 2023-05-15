@@ -70,7 +70,7 @@ func Test_GivenAConfirmedOrderAndDeliveredOrderCmdAndOrderRepoUpdateWithError_Wh
 
 	orderRepo := *order
 	orderRepo.Delivered()
-	mocks.OrderRepo.EXPECT().Update(ctx, orderRepo).Return(false, exception.OrderCannotUpdate{Id: order.Id})
+	mocks.OrderRepo.EXPECT().Update(ctx, gomock.Any()).Return(false, exception.OrderCannotUpdate{Id: order.Id})
 
 	err := deliveredOrderCmd.Do(ctx, order)
 

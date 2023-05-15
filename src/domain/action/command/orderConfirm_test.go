@@ -20,7 +20,7 @@ func Test_GivenAPendingOrderAndConfirmOrderCmd_WhenDo_ThenReturnNoErrorAndOrderI
 
 	orderRepo := *order
 	orderRepo.Confirm()
-	mocks.OrderRepo.EXPECT().Update(ctx, orderRepo).Return(true, nil)
+	mocks.OrderRepo.EXPECT().Update(ctx, gomock.Any()).Return(true, nil)
 
 	err := confirmOrderCmd.Do(ctx, order)
 
@@ -63,7 +63,7 @@ func Test_GivenAPendingOrderAndConfirmOrderCmdAndOrderRepoUpdateWithError_WhenDo
 
 	orderRepo := *order
 	orderRepo.Confirm()
-	mocks.OrderRepo.EXPECT().Update(ctx, orderRepo).Return(false, exception.OrderCannotUpdate{Id: order.Id})
+	mocks.OrderRepo.EXPECT().Update(ctx, gomock.Any()).Return(false, exception.OrderCannotUpdate{Id: order.Id})
 
 	err := confirmOrderCmd.Do(ctx, order)
 
