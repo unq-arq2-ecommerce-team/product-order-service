@@ -5,8 +5,6 @@ import (
 	"time"
 )
 
-const EnvDev = "development"
-
 type Config struct {
 	Environment   string          `required:"true" default:"development"`
 	Port          int             `required:"true" default:"8080"`
