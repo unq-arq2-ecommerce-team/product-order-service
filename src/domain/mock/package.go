@@ -28,6 +28,7 @@ func NewInterfaceMocks(t *testing.T) *InterfaceMocks {
 
 func setUpLoggerMock(logger *MockLogger) {
 	logger.EXPECT().WithFields(gomock.Any()).Return(logger).AnyTimes()
+	logger.EXPECT().WithRequestId(gomock.Any()).Return(logger).AnyTimes()
 
 	logger.EXPECT().Print(gomock.Any()).AnyTimes()
 	logger.EXPECT().Debug(gomock.Any()).AnyTimes()
