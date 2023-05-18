@@ -22,7 +22,7 @@ func NewConfirmOrder(baseLogger model.Logger, confirmOrderCmd command.ConfirmOrd
 }
 
 func (u ConfirmOrder) Do(ctx context.Context, orderId int64) error {
-	log := u.baseLogger.WithFields(model.LoggerFields{"orderId": orderId})
+	log := u.baseLogger.WithRequestId(ctx).WithFields(model.LoggerFields{"orderId": orderId})
 	order, err := u.findOrderByIdQuery.Do(ctx, orderId)
 	if err != nil {
 		log.WithFields(model.LoggerFields{"error": err}).Error("error when find order")

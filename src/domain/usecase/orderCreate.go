@@ -24,7 +24,7 @@ func NewCreateOrder(baseLogger model.Logger, createOrderCmd command.CreateOrder,
 }
 
 func (u CreateOrder) Do(ctx context.Context, customerId, productId int64, deliveryDate time.Time, deliveryAddress model.Address) (int64, error) {
-	log := u.baseLogger.WithFields(model.LoggerFields{"customerId": customerId, "productId": productId, "deliveryDate": deliveryDate, "deliveryAddress": deliveryAddress})
+	log := u.baseLogger.WithRequestId(ctx).WithFields(model.LoggerFields{"customerId": customerId, "productId": productId, "deliveryDate": deliveryDate, "deliveryAddress": deliveryAddress})
 	product, err := u.findProductByIdQuery.Do(ctx, productId)
 	if err != nil {
 		log.WithFields(model.LoggerFields{"error": err}).Errorf("error when find product")

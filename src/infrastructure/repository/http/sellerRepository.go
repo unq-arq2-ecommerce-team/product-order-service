@@ -29,7 +29,7 @@ func NewSellerRepository(baselogger model.Logger, client *http.Client, findByIdU
 }
 
 func (repo sellerRepository) FindById(ctx context.Context, sellerId int64) (*model.Seller, error) {
-	log := repo.logger.WithFields(logger.Fields{"findByIdUrl": repo.findByIdUrl, "sellerId": sellerId})
+	log := repo.logger.WithRequestId(ctx).WithFields(logger.Fields{"findByIdUrl": repo.findByIdUrl, "sellerId": sellerId})
 	log.Debugf("http find seller by id")
 	url := strings.Replace(repo.findByIdUrl, "{sellerId}", strconv.FormatInt(sellerId, 10), -1)
 	log = repo.logger.WithFields(logger.Fields{"url": url})

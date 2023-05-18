@@ -32,7 +32,7 @@ func NewProductRepository(baseLogger model.Logger, db *mongo.Database, timeout t
 }
 
 func (r *productRepository) FindById(ctx context.Context, id int64) (*model.Product, error) {
-	log := r.logger.WithFields(logger.Fields{"method": "FindById", "id": id})
+	log := r.logger.WithRequestId(ctx).WithFields(logger.Fields{"method": "FindById", "id": id})
 	filter := bson.M{"_id": id}
 	timeout, cf := context.WithTimeout(ctx, r.timeout)
 	defer cf()
@@ -48,7 +48,7 @@ func (r *productRepository) FindById(ctx context.Context, id int64) (*model.Prod
 }
 
 func (r *productRepository) Update(ctx context.Context, product model.Product) (bool, error) {
-	log := r.logger.WithFields(logger.Fields{"method": "Update", "productToUpdate": product})
+	log := r.logger.WithRequestId(ctx).WithFields(logger.Fields{"method": "Update", "productToUpdate": product})
 	timeout, cf := context.WithTimeout(ctx, r.timeout)
 	defer cf()
 	updateRes, err := r.db.Collection(productCollection).UpdateByID(timeout, product.Id, bson.M{"$set": product})
@@ -65,7 +65,7 @@ func (r *productRepository) Update(ctx context.Context, product model.Product) (
 }
 
 func (r *productRepository) Delete(ctx context.Context, id int64) (bool, error) {
-	log := r.logger.WithFields(logger.Fields{"method": "Delete", "productId": id})
+	log := r.logger.WithRequestId(ctx).WithFields(logger.Fields{"method": "Delete", "productId": id})
 	timeout, cf := context.WithTimeout(ctx, r.timeout)
 	defer cf()
 	deleteRes, err := r.db.Collection(productCollection).DeleteOne(timeout, bson.M{"_id": id})
@@ -82,7 +82,7 @@ func (r *productRepository) Delete(ctx context.Context, id int64) (bool, error) 
 }
 
 func (r *productRepository) DeleteAllBySellerId(ctx context.Context, sellerId int64) (bool, error) {
-	log := r.logger.WithFields(logger.Fields{"method": "DeleteAllBySellerId", "sellerId": sellerId})
+	log := r.logger.WithRequestId(ctx).WithFields(logger.Fields{"method": "DeleteAllBySellerId", "sellerId": sellerId})
 	timeout, cf := context.WithTimeout(ctx, r.timeout)
 	defer cf()
 	deleteRes, err := r.db.Collection(productCollection).DeleteMany(timeout, bson.M{"sellerId": sellerId})
@@ -95,7 +95,7 @@ func (r *productRepository) DeleteAllBySellerId(ctx context.Context, sellerId in
 }
 
 func (r *productRepository) Create(ctx context.Context, product model.Product) (int64, error) {
-	log := r.logger.WithFields(logger.Fields{"method": "Create"})
+	log := r.logger.WithRequestId(ctx).WithFields(logger.Fields{"method": "Create"})
 	timeoutCtx, cf := context.WithTimeout(ctx, r.timeout)
 	defer cf()
 
@@ -115,7 +115,7 @@ func (r *productRepository) Create(ctx context.Context, product model.Product) (
 }
 
 func (r *productRepository) FindAllBySellerId(ctx context.Context, sellerId int64) ([]model.Product, error) {
-	log := r.logger.WithFields(logger.Fields{"method": "FindById", "sellerId": sellerId})
+	log := r.logger.WithRequestId(ctx).WithFields(logger.Fields{"method": "FindById", "sellerId": sellerId})
 	filter := bson.M{"sellerId": sellerId}
 	timeout, cf := context.WithTimeout(ctx, r.timeout)
 	defer cf()
@@ -139,7 +139,7 @@ func (r *productRepository) FindAllBySellerId(ctx context.Context, sellerId int6
 }
 
 func (r *productRepository) Search(ctx context.Context, searchFilters model.ProductSearchFilter, pagingReq model.PagingRequest) ([]model.Product, model.Paging, error) {
-	log := r.logger.WithFields(logger.Fields{"searchFilters": searchFilters, "paging": pagingReq})
+	log := r.logger.WithRequestId(ctx).WithFields(logger.Fields{"searchFilters": searchFilters, "paging": pagingReq})
 	filter := getFilter(searchFilters)
 	log = log.WithFields(logger.Fields{"mongoFields": filter})
 	timeout, cf := context.WithTimeout(ctx, r.timeout)

@@ -34,7 +34,7 @@ func NewOrderRepository(baseLogger model.Logger, db *mongo.Database, timeout tim
 }
 
 func (r *orderRepository) Create(ctx context.Context, order model.Order) (int64, error) {
-	log := r.logger.WithFields(logger.Fields{"method": "Create", "order": order})
+	log := r.logger.WithRequestId(ctx).WithFields(logger.Fields{"method": "Create", "order": order})
 	timeoutCtx, cf := context.WithTimeout(ctx, r.timeout)
 	defer cf()
 	client := r.db.Client()
@@ -91,7 +91,7 @@ func (r *orderRepository) Create(ctx context.Context, order model.Order) (int64,
 }
 
 func (r *orderRepository) FindById(ctx context.Context, id int64) (*model.Order, error) {
-	log := r.logger.WithFields(logger.Fields{"method": "FindById", "id": id})
+	log := r.logger.WithRequestId(ctx).WithFields(logger.Fields{"method": "FindById", "id": id})
 	filter := bson.M{"_id": id}
 	timeout, cf := context.WithTimeout(ctx, r.timeout)
 	defer cf()
@@ -108,11 +108,12 @@ func (r *orderRepository) FindById(ctx context.Context, id int64) (*model.Order,
 		log.WithFields(logger.Fields{"error": err}).Errorf("error when map order dto to model order")
 		return nil, err
 	}
+	log.Debug("order found")
 	return &order, nil
 }
 
 func (r *orderRepository) Update(ctx context.Context, order model.Order) (bool, error) {
-	log := r.logger.WithFields(logger.Fields{"method": "Update", "orderToUpdate": order})
+	log := r.logger.WithRequestId(ctx).WithFields(logger.Fields{"method": "Update", "orderToUpdate": order})
 	timeout, cf := context.WithTimeout(ctx, r.timeout)
 	defer cf()
 

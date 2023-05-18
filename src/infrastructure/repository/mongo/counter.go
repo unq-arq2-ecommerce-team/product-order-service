@@ -16,7 +16,7 @@ const counterCollection = "counters"
 
 // getNextId log errors
 func getNextId(parentCtx context.Context, baseLogger model.Logger, db *mongo.Database, _ time.Duration, collection string) (int64, error) {
-	log := baseLogger.WithFields(logger.Fields{"method": "getNextId", "collection of _id": collection})
+	log := baseLogger.WithRequestId(parentCtx).WithFields(logger.Fields{"method": "getNextId", "collection of _id": collection})
 	opts := options.RunCmd().SetReadPreference(readpref.Primary())
 	command := bson.D{
 		{"findAndModify", counterCollection},
