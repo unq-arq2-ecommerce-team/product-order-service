@@ -41,7 +41,7 @@ func (repo sellerRepository) FindById(ctx context.Context, sellerId int64) (*mod
 	sw := time.Now()
 	res, err := repo.client.Do(req)
 	if err != nil {
-		log.WithFields(logger.Fields{"error": err}).Error("http error post add workflow event")
+		log.WithFields(logger.Fields{"error": err}).Error("http error do request")
 		return nil, err
 	}
 	defer func(Body io.ReadCloser) {
